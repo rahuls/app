@@ -15,7 +15,7 @@ function generate() {
         alert('Enter a valid URL');
     }else{
         const userAction = async () => {
-            const response = await fetch('http://localhost:3000', {
+            const response = await fetch('https://stark-cove-29174.herokuapp.com', {
               method: 'POST',
               body: 'lurl='+lurl, // string or object
               headers: {
@@ -26,7 +26,7 @@ function generate() {
             // do something with myJson
             console.log(res.surl);
     
-            document.getElementById('result').innerText = 'http://localhost:3000/'+res.surl;
+            document.getElementById('result').innerText = 'https://stark-cove-29174.herokuapp.com/'+res.surl;
         }
         userAction();
     }
