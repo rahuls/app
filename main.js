@@ -17,6 +17,8 @@ function generate() {
       // https://stark-cove-29174.herokuapp.com
       const API_ENDPOINT = 'https://stark-cove-29174.herokuapp.com';
         const userAction = async () => {
+          document.getElementById("btn").disabled = true;
+
 
             const response = await fetch(API_ENDPOINT, {
               method: 'POST',
@@ -28,9 +30,9 @@ function generate() {
               }
             });
             const {surl} = await response.json();
-            console.log(surl);
-    
-            document.getElementById('result').innerText = `${API_ENDPOINT}/${surl}`;
+            document.getElementById('result').innerText = `Short URL: ${API_ENDPOINT}/${surl}`;
+            document.getElementById("btn").disabled = false;
+
         }
         userAction();
     }
