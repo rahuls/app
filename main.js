@@ -1,3 +1,6 @@
+const API_ENDPOINT = 'https://stark-cove-29174.herokuapp.com';
+
+//Function to check whether the input url is valid
 function validURL(str) {
     var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
       '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
@@ -8,33 +11,28 @@ function validURL(str) {
     return !!pattern.test(str);
   }
   
+  //function to perform post operation to the server
+  async function postURL(){
+    document.getElementById("btn").disabled = true;
+
+      const response = await fetch(API_ENDPOINT, {
+        method: 'POST',
+        body: JSON.stringify({"lurl": lurl}),
+        headers: {'Content-Type': 'application/json'}
+      });
+
+      const {surl} = await response.json(); //get the short url from response
+      document.getElementById('result').innerText = `Short URL: ${API_ENDPOINT}/${surl}`;
+      document.getElementById("btn").disabled = false;
+
+  }
 function generate() {
-    let lurl = document.getElementById('lurl').value;
-    if(validURL(lurl)==false){
+    let lurl = document.getElementById('lurl').value; //get the long URL from input
+    if(validURL(lurl)==false){ //Check whether the URL is valid.
         document.getElementById('lurl').value='';
         alert('Enter a valid URL');
     }else{
-      // https://stark-cove-29174.herokuapp.com
-      const API_ENDPOINT = 'https://stark-cove-29174.herokuapp.com';
-        const userAction = async () => {
-          document.getElementById("btn").disabled = true;
-
-
-            const response = await fetch(API_ENDPOINT, {
-              method: 'POST',
-              body: JSON.stringify({
-                "lurl": lurl
-              }),
-              headers: {
-                'Content-Type': 'application/json'
-              }
-            });
-            const {surl} = await response.json();
-            document.getElementById('result').innerText = `Short URL: ${API_ENDPOINT}/${surl}`;
-            document.getElementById("btn").disabled = false;
-
-        }
-        userAction();
+        postURL(); //If URL is valid, generate a short URL.
     }
 }
 
