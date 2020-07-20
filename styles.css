@@ -5,13 +5,13 @@
     align-items: center;
 } 
 
+#desc {
+    width: 40%;
+    text-align: left;
+}
 
 #btn {
     height: 2 rem;
     width: 10%;
 }
 
-#desc {
-    width: 40%;
-    text-align: left;
-}
