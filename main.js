@@ -14,20 +14,29 @@ function generate() {
         document.getElementById('lurl').value='';
         alert('Enter a valid URL');
     }else{
+      // https://stark-cove-29174.herokuapp.com
+      const API_ENDPOINT = 'https://stark-cove-29174.herokuapp.com';
         const userAction = async () => {
-            const response = await fetch('https://stark-cove-29174.herokuapp.com', {
+
+            const response = await fetch(API_ENDPOINT, {
               method: 'POST',
-              body: 'lurl='+lurl, // string or object
+              body: JSON.stringify({
+                "lurl": lurl
+              }),
               headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
+                'Content-Type': 'application/json'
               }
             });
-            const res = await response.json(); //extract JSON from the http response
-            // do something with myJson
-            console.log(res.surl);
+            const {surl} = await response.json();
+            console.log(surl);
     
-            document.getElementById('result').innerText = 'https://stark-cove-29174.herokuapp.com/'+res.surl;
+            document.getElementById('result').innerText = `${API_ENDPOINT}/${surl}`;
         }
         userAction();
     }
 }
+
+// error handling
+// loading screen and button disable
+//post as json
+
