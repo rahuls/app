@@ -12,26 +12,27 @@ function validURL(str) {
   }
   
   //function to perform post operation to the server
-  async function postURL(){
-    document.getElementById("btn").disabled = true;
-
-      const response = await fetch(API_ENDPOINT, {
-        method: 'POST',
-        body: JSON.stringify({"lurl": lurl}),
-        headers: {'Content-Type': 'application/json'}
-      });
-
-      const {surl} = await response.json(); //get the short url from response
-      document.getElementById('result').innerText = `Short URL: ${API_ENDPOINT}/${surl}`;
-      document.getElementById("btn").disabled = false;
-
-  }
+  
 function generate() {
     let lurl = document.getElementById('lurl').value; //get the long URL from input
     if(validURL(lurl)==false){ //Check whether the URL is valid.
         document.getElementById('lurl').value='';
         alert('Enter a valid URL');
     }else{
+        const postURL  =async () => {
+          document.getElementById("btn").disabled = true;
+      
+            const response = await fetch(API_ENDPOINT, {
+              method: 'POST',
+              body: JSON.stringify({"lurl": lurl}),
+              headers: {'Content-Type': 'application/json'}
+            });
+      
+            const {surl} = await response.json(); //get the short url from response
+            document.getElementById('result').innerText = `Short URL: ${API_ENDPOINT}/${surl}`;
+            document.getElementById("btn").disabled = false;
+      
+        }
         postURL(); //If URL is valid, generate a short URL.
     }
 }
